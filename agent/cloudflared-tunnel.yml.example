@@ -1,0 +1,7 @@
+tunnel: vps1-metrics
+credentials-file: /etc/cloudflared/vps1-metrics.json
+
+ingress:
+  - hostname: vps1-metrics.harshsandhu.com
+    service: http://127.0.0.1:4317
+  - service: http_status:404

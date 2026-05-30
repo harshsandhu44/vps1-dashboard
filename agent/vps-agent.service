@@ -1,0 +1,21 @@
+[Unit]
+Description=VPS dashboard metrics agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/vps-dashboard-agent.env
+WorkingDirectory=/opt/vps-dashboard
+ExecStart=/usr/bin/node /opt/vps-dashboard/agent/vps-agent.mjs
+Restart=always
+RestartSec=5
+User=vpsdash
+Group=vpsdash
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target
