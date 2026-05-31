@@ -79,7 +79,11 @@ export function MetricChart({ data, kind, series }: MetricChartProps) {
               </linearGradient>
             ))}
           </defs>
-          <CartesianGrid stroke="var(--border)" strokeDasharray="3 3" vertical={false} />
+          <CartesianGrid
+            stroke="var(--border)"
+            strokeDasharray="3 3"
+            vertical={false}
+          />
           <XAxis
             axisLine={false}
             dataKey="timestamp"
@@ -91,6 +95,7 @@ export function MetricChart({ data, kind, series }: MetricChartProps) {
           />
           <YAxis
             axisLine={false}
+            domain={kind === "percent" ? [0, 100] : undefined}
             tickFormatter={(value) => formatValue(Number(value), kind)}
             tickLine={false}
             tickMargin={8}
@@ -109,7 +114,9 @@ export function MetricChart({ data, kind, series }: MetricChartProps) {
               formatValue(Number(value), kind),
               series.find((item) => item.key === name)?.label ?? name,
             ]}
-            labelFormatter={(value) => new Date(String(value)).toLocaleTimeString()}
+            labelFormatter={(value) =>
+              new Date(String(value)).toLocaleTimeString()
+            }
           />
           {series.map((item) => (
             <Area
