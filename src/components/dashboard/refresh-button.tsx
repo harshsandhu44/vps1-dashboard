@@ -15,7 +15,7 @@ export function RefreshButton() {
   }, [router]);
 
   useEffect(() => {
-    const timer = window.setInterval(refresh, 15_000);
+    const timer = window.setInterval(refresh, 5 * 60_000);
     return () => window.clearInterval(timer);
   }, [refresh]);
 
