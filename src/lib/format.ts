@@ -11,7 +11,7 @@ export function formatBytes(bytes: number) {
 
   const unitIndex = Math.min(
     Math.floor(Math.log(bytes) / Math.log(1024)),
-    byteUnits.length - 1
+    byteUnits.length - 1,
   );
   const value = bytes / 1024 ** unitIndex;
 

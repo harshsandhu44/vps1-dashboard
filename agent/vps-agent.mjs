@@ -120,11 +120,7 @@ function readCpuUsage() {
 
 function readCpuSnapshot() {
   const [line] = readFileSync("/proc/stat", "utf8").split("\n");
-  const values = line
-    .trim()
-    .split(/\s+/)
-    .slice(1)
-    .map(Number);
+  const values = line.trim().split(/\s+/).slice(1).map(Number);
   const idle = values[3] + (values[4] ?? 0);
   const total = values.reduce((sum, value) => sum + value, 0);
 
@@ -134,8 +130,7 @@ function readCpuSnapshot() {
 function readCpuCores() {
   return readFileSync("/proc/cpuinfo", "utf8")
     .split("\n")
-    .filter((line) => line.startsWith("processor"))
-    .length;
+    .filter((line) => line.startsWith("processor")).length;
 }
 
 function readMemory() {
@@ -146,7 +141,7 @@ function readMemory() {
       .map((line) => {
         const [key, value] = line.split(":");
         return [key, Number(value.trim().split(/\s+/)[0]) * 1024];
-      })
+      }),
   );
   const totalBytes = meminfo.MemTotal;
   const availableBytes = meminfo.MemAvailable;
@@ -182,11 +177,11 @@ function readNetworkRate() {
   const seconds = Math.max((now - previousNetworkAt) / 1000, 1);
   const rxBytesPerSec = Math.max(
     0,
-    (current.rxTotalBytes - previousNetwork.rxTotalBytes) / seconds
+    (current.rxTotalBytes - previousNetwork.rxTotalBytes) / seconds,
   );
   const txBytesPerSec = Math.max(
     0,
-    (current.txTotalBytes - previousNetwork.txTotalBytes) / seconds
+    (current.txTotalBytes - previousNetwork.txTotalBytes) / seconds,
   );
 
   previousNetwork = current;
@@ -207,7 +202,9 @@ function readNetworkTotals() {
   let rxTotalBytes = 0;
   let txTotalBytes = 0;
 
-  for (const line of readFileSync("/proc/net/dev", "utf8").split("\n").slice(2)) {
+  for (const line of readFileSync("/proc/net/dev", "utf8")
+    .split("\n")
+    .slice(2)) {
     const [namePart, dataPart] = line.split(":");
     if (!dataPart) {
       continue;

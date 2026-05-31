@@ -122,7 +122,9 @@ function createDemoMetrics(): VpsMetrics {
   const history = Array.from({ length: sampleWindow }, (_, index) => {
     const phase = index / 3;
     return {
-      timestamp: new Date(now - (sampleWindow - index - 1) * 30_000).toISOString(),
+      timestamp: new Date(
+        now - (sampleWindow - index - 1) * 30_000,
+      ).toISOString(),
       cpuPercent: Math.round(18 + Math.sin(phase) * 8 + index * 0.25),
       memoryPercent: Math.round(54 + Math.cos(phase / 2) * 4),
       diskPercent: 68,
