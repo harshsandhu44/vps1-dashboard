@@ -37,7 +37,7 @@ export default async function Home() {
       <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div className="space-y-3">
           <Badge variant={result.source === "agent" ? "default" : "outline"}>
-            {result.source === "agent" ? "live" : "demo"}
+            {result.source === "agent" ? "Live" : "Demo"}
           </Badge>
           <div>
             <p className="font-pixel text-xs uppercase tracking-[0.22em] text-muted-foreground">
