@@ -1,5 +1,6 @@
 import { AlertTriangle, ArrowDown, ArrowUp, Cpu, HardDrive, MemoryStick, Server } from "lucide-react";
 
+import { LocalTime } from "@/components/dashboard/local-time";
 import { MetricChart } from "@/components/dashboard/metric-chart";
 import { RefreshButton } from "@/components/dashboard/refresh-button";
 import { Badge } from "@/components/ui/badge";
@@ -55,7 +56,9 @@ export default async function Home() {
         <div className="flex items-center justify-between gap-3 sm:justify-end">
           <div className="text-right font-mono text-xs text-muted-foreground">
             <div>Updated</div>
-            <div className="text-foreground">{formatTimestamp(latest.timestamp)}</div>
+            <div className="text-foreground">
+              <LocalTime fallback={formatTimestamp(latest.timestamp)} value={latest.timestamp} />
+            </div>
           </div>
           <RefreshButton />
         </div>
