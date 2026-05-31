@@ -1,4 +1,12 @@
-import { AlertTriangle, ArrowDown, ArrowUp, Cpu, HardDrive, MemoryStick, Server } from "lucide-react";
+import {
+  AlertTriangle,
+  ArrowDown,
+  ArrowUp,
+  Cpu,
+  HardDrive,
+  MemoryStick,
+  Server,
+} from "lucide-react";
 
 import { LocalTime } from "@/components/dashboard/local-time";
 import { MetricChart } from "@/components/dashboard/metric-chart";
@@ -13,7 +21,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { formatBytes, formatPercent, formatRate, formatTimestamp, formatUptime } from "@/lib/format";
+import {
+  formatBytes,
+  formatPercent,
+  formatRate,
+  formatTimestamp,
+  formatUptime,
+} from "@/lib/format";
 import { getMetrics } from "@/lib/metrics";
 
 export const dynamic = "force-dynamic";
@@ -57,7 +71,10 @@ export default async function Home() {
           <div className="text-right font-mono text-xs text-muted-foreground">
             <div>Updated</div>
             <div className="text-foreground">
-              <LocalTime fallback={formatTimestamp(latest.timestamp)} value={latest.timestamp} />
+              <LocalTime
+                fallback={formatTimestamp(latest.timestamp)}
+                value={latest.timestamp}
+              />
             </div>
           </div>
           <RefreshButton />
@@ -74,7 +91,7 @@ export default async function Home() {
         />
         <MetricCard
           description={`${formatBytes(latest.memory.usedBytes)} of ${formatBytes(
-            latest.memory.totalBytes
+            latest.memory.totalBytes,
           )}`}
           icon={<MemoryStick className="size-4" />}
           label="Memory"
@@ -83,7 +100,7 @@ export default async function Home() {
         />
         <MetricCard
           description={`${formatBytes(latest.disk.usedBytes)} of ${formatBytes(
-            latest.disk.totalBytes
+            latest.disk.totalBytes,
           )} on ${latest.disk.mount}`}
           icon={<HardDrive className="size-4" />}
           label="Disk"
@@ -105,8 +122,16 @@ export default async function Home() {
             data={history}
             kind="percent"
             series={[
-              { key: "cpuPercent", label: "CPU", color: "#fafafa" },
-              { key: "memoryPercent", label: "Memory", color: "#a3a3a3" },
+              {
+                key: "cpuPercent",
+                label: "CPU",
+                color: "var(--color-chart-1)",
+              },
+              {
+                key: "memoryPercent",
+                label: "Memory",
+                color: "var(--color-chart-2)",
+              },
             ]}
           />
         </ChartCard>
@@ -114,7 +139,13 @@ export default async function Home() {
           <MetricChart
             data={history}
             kind="percent"
-            series={[{ key: "diskPercent", label: "Disk", color: "#d4d4d4" }]}
+            series={[
+              {
+                key: "diskPercent",
+                label: "Disk",
+                color: "var(--color-chart-1)",
+              },
+            ]}
           />
         </ChartCard>
       </section>
@@ -155,13 +186,24 @@ export default async function Home() {
             </div>
           </CardContent>
         </Card>
-        <ChartCard description="Inbound and outbound traffic rate" title="Traffic">
+        <ChartCard
+          description="Inbound and outbound traffic rate"
+          title="Traffic"
+        >
           <MetricChart
             data={history}
             kind="rate"
             series={[
-              { key: "rxBytesPerSec", label: "Inbound", color: "#fafafa" },
-              { key: "txBytesPerSec", label: "Outbound", color: "#737373" },
+              {
+                key: "rxBytesPerSec",
+                label: "Inbound",
+                color: "var(--color-chart-1)",
+              },
+              {
+                key: "txBytesPerSec",
+                label: "Outbound",
+                color: "var(--color-chart-2)",
+              },
             ]}
           />
         </ChartCard>
@@ -173,7 +215,9 @@ export default async function Home() {
 function DashboardShell({ children }: { children: React.ReactNode }) {
   return (
     <main className="min-h-screen bg-background px-4 py-5 text-foreground sm:px-6 lg:px-8">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-5">{children}</div>
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-5">
+        {children}
+      </div>
     </main>
   );
 }
@@ -200,7 +244,9 @@ function MetricCard({
           <span className="text-muted-foreground">{icon}</span>
           {label}
         </CardTitle>
-        <CardAction className="font-mono text-2xl font-semibold">{value}</CardAction>
+        <CardAction className="font-mono text-2xl font-semibold">
+          {value}
+        </CardAction>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       {typeof progress === "number" ? (
@@ -261,7 +307,13 @@ function NetworkStat({
   );
 }
 
-function UnavailableState({ error, status }: { error: string; status?: number }) {
+function UnavailableState({
+  error,
+  status,
+}: {
+  error: string;
+  status?: number;
+}) {
   return (
     <Card>
       <CardHeader>
@@ -270,7 +322,8 @@ function UnavailableState({ error, status }: { error: string; status?: number })
           Metrics unavailable
         </CardTitle>
         <CardDescription>
-          The dashboard is reachable, but the private metrics agent did not respond.
+          The dashboard is reachable, but the private metrics agent did not
+          respond.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
